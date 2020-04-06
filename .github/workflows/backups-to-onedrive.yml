@@ -27,3 +27,7 @@ jobs:
     - name: Upload backup to OneDrive
       env: { SSH_AUTH_SOCK: /tmp/ssh_agent.sock }
       run: ssh ${{ secrets.NETCUP_SSH_USER }}@${{ secrets.NETCUP_SSH_HOST }} "~/bin-user/rclone --config ~/conf-user/rclone.conf --progress copy ~/backups onedrive:backups/website/$(date +'%Y-%m-%d')"
+
+    - name: Delete old backups
+      env: { SSH_AUTH_SOCK: /tmp/ssh_agent.sock }
+      run: ssh ${{ secrets.NETCUP_SSH_USER }}@${{ secrets.NETCUP_SSH_HOST }} "~/bin-user/rclone --config ~/conf-user/rclone.conf delete --min-age 30d onedrive:backups/website && ~/bin-user/rclone --config ~/conf-user/rclone.conf rmdirs onedrive:backups/website"
