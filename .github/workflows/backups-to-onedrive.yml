@@ -26,4 +26,4 @@ jobs:
 
     - name: Upload backup to OneDrive
       env: { SSH_AUTH_SOCK: /tmp/ssh_agent.sock }
-      run: ssh ${{ secrets.NETCUP_SSH_USER }}@${{ secrets.NETCUP_SSH_HOST }} "rclone -c ~/conf-user/rclone.conf copy ~/backups onedrive:backups/website"
+      run: ssh ${{ secrets.NETCUP_SSH_USER }}@${{ secrets.NETCUP_SSH_HOST }} "~/bin-user/rclone -c ~/conf-user/rclone.conf copy ~/backups onedrive:backups/website"
